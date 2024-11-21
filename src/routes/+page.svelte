@@ -61,7 +61,7 @@
 
 		form.addEventListener('submit', () => {
 			console.log(input.value);
-			mapMarker.src = `{base}/veekogud/${Object.keys(rivers)[Math.floor(Math.random() * Object.keys(rivers).length)]}.png`;
+			mapMarker.src = `veekogud/${Object.keys(rivers)[Math.floor(Math.random() * Object.keys(rivers).length)]}.png`;
 			input.value = '';
 		});
 	});
