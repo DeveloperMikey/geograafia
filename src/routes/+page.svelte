@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
@@ -61,15 +61,15 @@
 
 		form.addEventListener('submit', () => {
 			console.log(input.value);
-			mapMarker.src = `/veekogud/${Object.keys(rivers)[Math.floor(Math.random() * Object.keys(rivers).length)]}.png`;
+			mapMarker.src = `{base}/veekogud/${Object.keys(rivers)[Math.floor(Math.random() * Object.keys(rivers).length)]}.png`;
 			input.value = '';
 		});
 	});
 </script>
 
 <div id="map-container">
-	<img class="map" id="map" alt="" src="/veekogud/Kaart.png" />
-	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="/veekogud/Ahja jõgi.png" />
+	<img class="map" id="map" alt="" src="{base}/veekogud/Kaart.png" />
+	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="{base}/veekogud/Ahja jõgi.png" />
 
 	<form id="form" bind:this={form}>
 		<input type="text" id="input" autocomplete="off" placeholder="Kirjuta siia nimi" bind:this={input} />
