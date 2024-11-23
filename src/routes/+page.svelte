@@ -3,10 +3,10 @@
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
-	let hint = $state('vihje läheb siia');
+	let hint = $state('');
 	let mapMarker: HTMLImageElement;
 
-	const rivers = {
+	const waters = {
 		'Ahja jõgi': 0,
 		'Elva jõgi': 0,
 		'Endla järv': 0,
@@ -51,6 +51,12 @@
 		'Ülemiste järv': 0,
 	};
 
+	const randomWater = () => {
+		return Object.keys(waters)[Math.floor(Math.random() * Object.keys(waters).length)];
+	};
+
+	let current = $state(randomWater());
+
 	$effect(() => {
 		input.focus();
 		input.addEventListener('blur', () => {
@@ -59,19 +65,24 @@
 			}, 0);
 		});
 
-		form.addEventListener('submit', () => {
-			console.log(input.value);
-			mapMarker.src = `veekogud/${Object.keys(rivers)[Math.floor(Math.random() * Object.keys(rivers).length)]}.png`;
+		form.addEventListener('submit', (event) => {
+			if (input.value.toLowerCase() === current.toLowerCase()) {
+				input.style.backgroundColor = '#70e071';
+				current = randomWater();
+			} else {
+				input.style.backgroundColor = '#f56e6e';
+			}
 			input.value = '';
 		});
 	});
 </script>
 
+{current}
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/veekogud/Kaart.png" />
-	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="{base}/veekogud/Ahja jõgi.png" />
+	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="{base}/veekogud/{current}.png" />
 
-	<form id="form" bind:this={form}>
+	<form id="form" class="wrong" bind:this={form}>
 		<input type="text" id="input" autocomplete="off" placeholder="Kirjuta siia nimi" bind:this={input} />
 	</form>
 	<p id="hint">{hint}</p>
@@ -115,7 +126,7 @@
 		position: fixed;
 		bottom: 0;
 		height: 40px;
-		width: 70%; /* Adjusted width */
+		width: 70%;
 		border: 0px;
 		border-top: 2px solid rgba(0, 0, 0, 0.5);
 		border-right: 2px solid rgba(0, 0, 0, 0.5);
@@ -149,17 +160,5 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
-
-	.wrong {
-		background-color: rgb(128, 79, 79);
-	}
-
-	.correct {
-		background-color: rgb(112, 224, 113);
-	}
-
-	.close {
-		background-color: rgb(229, 231, 122);
 	}
 </style>
