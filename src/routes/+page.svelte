@@ -108,9 +108,9 @@
 				})
 			} else { // wrong
 				input.style.backgroundColor = '#f56e6e';
-				if(mistakes === 0){
+				if(mistakes === 1){
 					hint = current.charAt(0) + current.replace(/[^ ]/g, '_').slice(1) // A____ _____
-				}else if(mistakes > 0){
+				}else if(mistakes > 1){
 					hint = current
 				}
 			}
