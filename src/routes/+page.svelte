@@ -4,6 +4,7 @@
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
 	let hint = $state('');
+	let mistakes = 0;
 	let mapMarker: HTMLImageElement;
 
 	const waters = {
@@ -66,18 +67,27 @@
 		});
 
 		form.addEventListener('submit', (event) => {
+			if (input.value.length === 0) return // no empty
+
 			if (input.value.toLowerCase() === current.toLowerCase()) {
 				input.style.backgroundColor = '#70e071';
 				current = randomWater();
+				hint = ""
+				mistakes = 0
 			} else {
 				input.style.backgroundColor = '#f56e6e';
+				if(mistakes === 0){
+					hint = current.charAt(0) + current.replace(/[^ ]/g, '_').slice(1) // A____ _____
+				}else if(mistakes > 0){
+					hint = current
+				}
+				mistakes += 1
 			}
 			input.value = '';
 		});
 	});
 </script>
 
-{current}
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/veekogud/Kaart.png" />
 	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="{base}/veekogud/{current}.png" />
