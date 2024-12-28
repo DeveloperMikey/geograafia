@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import * as diff from 'diff';
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
@@ -56,9 +57,10 @@
 		return Object.keys(waters)[Math.floor(Math.random() * Object.keys(waters).length)];
 	};
 
-	let current = $state(randomWater());
-
+	let current = $state(randomWater())
+	
 	$effect(() => {
+		current = randomWater()
 		input.focus();
 		input.addEventListener('blur', () => {
 			setTimeout(() => {
@@ -68,34 +70,75 @@
 
 		form.addEventListener('submit', (event) => {
 			if (input.value.length === 0) return // no empty
+			const userInput = input.value.trim()
+			input.value = '';
 
-			if (input.value.toLowerCase() === current.toLowerCase()) {
+			if (userInput.toLowerCase() === current.toLowerCase()) {
 				input.style.backgroundColor = '#70e071';
 				current = randomWater();
 				hint = ""
 				mistakes = 0
-			} else {
+				return
+			}
+			mistakes += 1
+
+			const difference = diff.diffChars(current, userInput, { ignoreCase: true })
+			console.log(difference)
+			const differenceCount = difference.filter((section) => {
+				return section.added || section.removed
+			}).reduce((partial, section) => partial + (section.count || 0), 0)
+
+			if (differenceCount <= 2) { // misspell
+				input.style.backgroundColor = '#ffe600';
+				hint = ""
+				difference.forEach(section => {
+					if (section.added){
+						hint += `<span style="color: red; white-space: pre;">${section.value}</span>`
+					} else if(!section.removed) {
+						hint += section.value
+					}
+				})
+				hint += " -> "
+				difference.forEach(section => {
+					if (section.removed){
+						hint += `<span style="color: green; white-space: pre;">${section.value}</span>`
+					} else if (!section.added) {
+						hint += section.value
+					}
+				})
+			} else { // wrong
 				input.style.backgroundColor = '#f56e6e';
 				if(mistakes === 0){
 					hint = current.charAt(0) + current.replace(/[^ ]/g, '_').slice(1) // A____ _____
 				}else if(mistakes > 0){
 					hint = current
 				}
-				mistakes += 1
 			}
-			input.value = '';
+			
 		});
 	});
 </script>
 
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/veekogud/Kaart.png" />
-	<img class="map" id="map-marker" alt="" bind:this={mapMarker} src="{base}/veekogud/{current}.png" />
+	<img
+		class="map"
+		id="map-marker"
+		alt=""
+		bind:this={mapMarker}
+		src="{base}/veekogud/{current}.png"
+	/>
 
 	<form id="form" class="wrong" bind:this={form}>
-		<input type="text" id="input" autocomplete="off" placeholder="Kirjuta siia nimi" bind:this={input} />
+		<input
+			type="text"
+			id="input"
+			autocomplete="off"
+			placeholder="Kirjuta siia nimi"
+			bind:this={input}
+		/>
 	</form>
-	<p id="hint">{hint}</p>
+	<p id="hint">{@html hint}</p>
 </div>
 
 <style>

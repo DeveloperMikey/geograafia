@@ -11,7 +11,9 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.6",
-		"@types/deno": "^2.0.0"
+		"@types/deno": "^2.0.0",
+		"@types/diff": "^6.0.0",
+		"diff": "^7.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
