@@ -14,8 +14,13 @@
 	let misspelled = false;
 	let wrong = false;
 
+    const preloadedImages: Record<string, HTMLImageElement> = {};
+
 	names.forEach(name => {
 		deck.addCard(name)
+        const img = new Image();
+        img.src = `${base}/maps/${path}/${name}.png`
+        preloadedImages[name] = img;
 	})
 
 	$effect(() => {
@@ -101,7 +106,7 @@
 		class="map"
 		id="map-marker"
 		alt=""
-		src="{base}/maps/{path}/{deck.current.name}.png"
+		src="{preloadedImages[deck.current.name]?.src}"
 	/>
 	{/if}
 
