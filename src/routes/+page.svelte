@@ -1,133 +1,152 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import * as diff from 'diff';
+	import { base } from "$app/paths";
+	import * as diff from "diff";
+	import * as repetition from "../ts/repetition.svelte";
+
+	const deck = new repetition.Deck()
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
-	let hint = $state('');
-	let mistakes = 0;
-	let mapMarker: HTMLImageElement;
+	let hint = $state("");
+
+	let misspelled = false;
+	let wrong = false;
 
 	const waters = {
-		'Ahja jõgi': 0,
-		'Elva jõgi': 0,
-		'Endla järv': 0,
-		'Erimistu järv': 0,
-		'Halliste jõgi': 0,
-		'Jägala jõgi': 0,
-		'Kahala järv': 0,
+		"Ahja jõgi": 0,
+		"Elva jõgi": 0,
+		"Endla järv": 0,
+		"Erimistu järv": 0,
+		"Halliste jõgi": 0,
+		"Jägala jõgi": 0,
+		"Kahala järv": 0,
 		Karujärv: 0,
-		'Kassari jõgi': 0,
-		'Keila jõgi': 0,
-		'Koosa järv': 0,
-		'Kunda jõgi': 0,
-		'Kuremaa järv': 0,
-		'Mullutu Suurlaht': 0,
-		'Narva jõgi': 0,
-		'Narva veehoidla': 0,
-		'Navesti jõgi': 0,
-		'Paunküla veehoidla': 0,
-		'Pedja jõgi': 0,
-		'Peipsi järv': 0,
-		'Pirita jõgi': 0,
-		'Piusa jõgi': 0,
-		'Purtse jõgi': 0,
-		'Pärnu jõgi': 0,
-		'Põltsamaa jõgi': 0,
+		"Kassari jõgi": 0,
+		"Keila jõgi": 0,
+		"Koosa järv": 0,
+		"Kunda jõgi": 0,
+		"Kuremaa järv": 0,
+		"Mullutu Suurlaht": 0,
+		"Narva jõgi": 0,
+		"Narva veehoidla": 0,
+		"Navesti jõgi": 0,
+		"Paunküla veehoidla": 0,
+		"Pedja jõgi": 0,
+		"Peipsi järv": 0,
+		"Pirita jõgi": 0,
+		"Piusa jõgi": 0,
+		"Purtse jõgi": 0,
+		"Pärnu jõgi": 0,
+		"Põltsamaa jõgi": 0,
 		Pühajärv: 0,
-		'Raudna jõgi': 0,
+		"Raudna jõgi": 0,
 		Saadjärv: 0,
-		'Sauga jõgi': 0,
-		'Sutlepa meri': 0,
-		'Suur Emajõgi': 0,
-		'Tamula järv': 0,
-		'Tõhela järv': 0,
-		'Vagula järv': 0,
+		"Sauga jõgi": 0,
+		"Sutlepa meri": 0,
+		"Suur Emajõgi": 0,
+		"Tamula järv": 0,
+		"Tõhela järv": 0,
+		"Vagula järv": 0,
 		Valgejõgi: 0,
 		Veisjärv: 0,
-		'Vigala jõgi': 0,
-		'Väike-Emajõgi': 0,
-		'Võhandu jõgi': 0,
+		"Vigala jõgi": 0,
+		"Väike-Emajõgi": 0,
+		"Võhandu jõgi": 0,
 		Võrtsjärv: 0,
-		'Õhne jõgi': 0,
-		'Ülemiste järv': 0,
+		"Õhne jõgi": 0,
+		"Ülemiste järv": 0,
 	};
 
-	const randomWater = () => {
-		return Object.keys(waters)[Math.floor(Math.random() * Object.keys(waters).length)];
-	};
+	Object.keys(waters).forEach(waterbody => {
+		deck.addCard(waterbody)
+	})
 
-	let current = $state(randomWater())
-	
 	$effect(() => {
-		current = randomWater()
+		deck.getNextCard();
 		input.focus();
-		input.addEventListener('blur', () => {
+		input.addEventListener("blur", () => { // keep focus on input
 			setTimeout(() => {
 				input.focus();
 			}, 0);
 		});
 
-		form.addEventListener('submit', (event) => {
-			if (input.value.length === 0) return // no empty
-			const userInput = input.value.trim()
-			input.value = '';
+		form.addEventListener("submit", (event) => {
+			if (input.value.length === 0 || deck.current === undefined) return; // no empty | card not found
+			const userInput = input.value.trim();
+			input.value = "";
 
-			if (userInput.toLowerCase() === current.toLowerCase()) {
-				input.style.backgroundColor = '#70e071';
-				current = randomWater();
-				hint = ""
-				mistakes = 0
-				return
+			if (userInput.toLowerCase() === deck.current.name.toLowerCase()) {
+				input.style.backgroundColor = "#70e071"; // green
+				hint = "";
+
+				deck.current.rate(wrong, misspelled);
+
+				wrong = false;
+				misspelled = false;
+
+				deck.getNextCard(); // TODO: check if no cards are left
+				return;
 			}
-			mistakes += 1
 
-			const difference = diff.diffChars(current, userInput, { ignoreCase: true })
-			console.log(difference)
-			const differenceCount = difference.filter((section) => {
-				return section.added || section.removed
-			}).reduce((partial, section) => partial + (section.count || 0), 0)
+			const difference = diff.diffChars(deck.current.name, userInput, {
+				ignoreCase: true,
+			});
 
-			if (differenceCount <= 2) { // misspell
-				input.style.backgroundColor = '#ffe600';
-				hint = ""
-				difference.forEach(section => {
-					if (section.added){
-						hint += `<span style="color: red; white-space: pre;">${section.value}</span>`
-					} else if(!section.removed) {
-						hint += section.value
-					}
+			const differenceCount = difference
+				.filter((section) => {
+					return section.added || section.removed;
 				})
-				hint += " -> "
-				difference.forEach(section => {
-					if (section.removed){
-						hint += `<span style="color: green; white-space: pre;">${section.value}</span>`
+				.reduce(
+					(partial, section) => partial + (section.count || 0),
+					0,
+				);
+
+			if (differenceCount <= 2) {
+				// misspell
+				misspelled = true;
+				input.style.backgroundColor = "#ffe600"; // yellow
+				hint = "";
+				difference.forEach((section) => {
+					if (section.added) {
+						hint += `<span style="color: red; white-space: pre;">${section.value}</span>`;
+					} else if (!section.removed) {
+						hint += section.value;
+					}
+				});
+				hint += " -> ";
+				difference.forEach((section) => {
+					if (section.removed) {
+						hint += `<span style="color: green; white-space: pre;">${section.value}</span>`;
 					} else if (!section.added) {
-						hint += section.value
+						hint += section.value;
 					}
-				})
-			} else { // wrong
-				input.style.backgroundColor = '#f56e6e';
-				if(mistakes === 1){
-					hint = current.charAt(0) + current.replace(/[^ ]/g, '_').slice(1) // A____ _____
-				}else if(mistakes > 1){
-					hint = current
+				});
+			} else {
+				// wrong
+				input.style.backgroundColor = "#f56e6e"; // red
+				if (!wrong && !misspelled) {
+					hint =
+						deck.current.name.charAt(0) +
+						deck.current.name.replace(/[^ ]/g, "_").slice(1); // A____ _____
+						wrong = true;
+				} else {
+					hint = deck.current.name;
 				}
 			}
-			
 		});
 	});
 </script>
 
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/veekogud/Kaart.png" />
+	{#if deck.current !== undefined}
 	<img
 		class="map"
 		id="map-marker"
 		alt=""
-		bind:this={mapMarker}
-		src="{base}/veekogud/{current}.png"
+		src="{base}/veekogud/{deck.current.name}.png"
 	/>
+	{/if}
 
 	<form id="form" class="wrong" bind:this={form}>
 		<input
