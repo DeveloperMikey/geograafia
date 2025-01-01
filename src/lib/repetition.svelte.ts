@@ -1,4 +1,4 @@
-import { debug } from "./debugging"
+import { debug } from "$lib/debugging"
 
 enum State { Unknown, Hard, Medium, Easy }
 
