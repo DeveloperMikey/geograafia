@@ -1,1 +1,0 @@
-import{a as t,t as r}from"../chunks/disclose-version.Bxlf7fDP.js";import"../chunks/legacy.DQjHTG4R.js";import{n as o}from"../chunks/runtime.BoDygLRA.js";var m=r('<a href="/geograafia/maps/veekogud">Veekogude kaart</a> <a href="/geograafia/maps/maastikud">Maastikute kaart</a>',1);function i(a){var e=m();o(2),t(a,e)}export{i as component};
