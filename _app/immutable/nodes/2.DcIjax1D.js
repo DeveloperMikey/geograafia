@@ -1,1 +1,0 @@
-import{a as o,t as r}from"../chunks/disclose-version.CluIEblQ.js";import"../chunks/legacy.CXS3LavU.js";var t=r('<a href="/geograafia/maps/veekogud">Veekogude kaart</a>');function g(a){var e=t();o(a,e)}export{g as component};
