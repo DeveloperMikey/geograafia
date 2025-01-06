@@ -40,14 +40,14 @@ class Card {
                     break
                 case State.Hard:
                     this.stateProgress += 1
-                    if (this.stateProgress > 3) { // if correct 3 times, promote to medium
+                    if (this.stateProgress > 1) { // if correct 3 times, promote to medium
                         this.state = State.Medium
                         this.stateProgress = 0
                     }
                     break
                 case State.Medium:
                     this.stateProgress += 1
-                    if (this.stateProgress > 2 && !misspelled) { // if correct 2 times, promote to easy, unless it was misspelled
+                    if (this.stateProgress > 1 && !misspelled) { // if correct 2 times, promote to easy, unless it was misspelled
                         this.state = State.Easy
                         this.stateProgress = 0
                     }
