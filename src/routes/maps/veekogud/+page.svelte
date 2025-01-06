@@ -10,7 +10,7 @@
         "Jägala jõgi",
         "Kahala järv",
         "Karujärv",
-        "Kassari jõgi",
+        "Kasari jõgi",
         "Keila jõgi",
         "Koosa järv",
         "Kunda jõgi",
