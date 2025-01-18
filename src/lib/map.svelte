@@ -110,13 +110,15 @@
 	/>
 	{/if}
 
-	<form id="form" class="wrong" bind:this={form}>
+	<form id="form" bind:this={form}>
+		<!-- svelte-ignore a11y_autofocus -->
 		<input
 			type="text"
 			id="input"
 			autocomplete="off"
 			placeholder="Kirjuta siia nimi"
 			bind:this={input}
+			autofocus
 		/>
 	</form>
 	<p id="hint">{@html hint}</p>
