@@ -5,7 +5,6 @@ enum State { Unknown, Hard, Medium, Easy }
 class Card {
     name: string
     state: State = State.Unknown
-    stateProgress: number = 0
     time: number = 0
 
     constructor(name: string) {
@@ -22,10 +21,8 @@ class Card {
                     this.state = State.Hard
                     break
                 case State.Hard: // Stays hard
-                    this.stateProgress = 0
                     break
                 case State.Medium:
-                    this.stateProgress = 0
                     this.state = State.Hard
                     break
                 default:
@@ -39,17 +36,11 @@ class Card {
                     this.state = State.Easy
                     break
                 case State.Hard:
-                    this.stateProgress += 1
-                    if (this.stateProgress > 1) { // if correct 3 times, promote to medium
-                        this.state = State.Medium
-                        this.stateProgress = 0
-                    }
+                    this.state = State.Medium
                     break
                 case State.Medium:
-                    this.stateProgress += 1
-                    if (this.stateProgress > 1 && !misspelled) { // if correct 2 times, promote to easy, unless it was misspelled
+                    if (!misspelled) { // if correct 2 times, promote to easy, unless it was misspelled
                         this.state = State.Easy
-                        this.stateProgress = 0
                     }
                     break
                 default:
@@ -60,10 +51,10 @@ class Card {
 
         switch (this.state) {
             case State.Hard:
-                this.time = Date.now() + 30 * 1000 // to milliseconds
+                this.time = Date.now() + 60 * 1000 // to milliseconds
                 break
             case State.Medium:
-                this.time = Date.now() + 60 * 1000
+                this.time = Date.now() + 120 * 1000
                 break
             default:
                 break
