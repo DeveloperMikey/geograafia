@@ -135,9 +135,9 @@
 
 	.map {
 		position: absolute;
-		top: 50%;
+		top: 0px;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, 0px);
 		max-width: 100%;
 		max-height: 100%;
 		pointer-events: none;
