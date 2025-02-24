@@ -3,9 +3,9 @@
 	import * as diff from "diff";
 	import * as repetition from "$lib/repetition.svelte";
 
-    let {path, names}: {path: string; names: string[]} = $props()
+	let { path, names }: { path: string; names: string[] } = $props();
 
-	const deck = new repetition.Deck()
+	const deck = new repetition.Deck();
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
@@ -14,19 +14,20 @@
 	let misspelled = false;
 	let wrong = false;
 
-    const preloadedImages: Record<string, HTMLImageElement> = {};
+	const preloadedImages: Record<string, HTMLImageElement> = {};
 
-	names.forEach(name => {
-		deck.addCard(name)
-        const img = new Image();
-        img.src = `${base}/maps/${path}/${name}.png`
-        preloadedImages[name] = img;
-	})
+	names.forEach((name) => {
+		deck.addCard(name);
+		const img = new Image();
+		img.src = `${base}/maps/${path}/${name}.png`;
+		preloadedImages[name] = img;
+	});
 
 	$effect(() => {
 		deck.getNextCard();
 		input.focus();
-		input.addEventListener("blur", () => { // keep focus on input
+		input.addEventListener("blur", () => {
+			// keep focus on input
 			setTimeout(() => {
 				input.focus();
 			}, 0);
@@ -90,7 +91,7 @@
 					hint =
 						deck.current.name.charAt(0) +
 						deck.current.name.replace(/[^ ]/g, "_").slice(1); // A____ _____
-						wrong = true;
+					wrong = true;
 				} else {
 					hint = deck.current.name;
 				}
@@ -102,12 +103,12 @@
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/maps/{path}/Kaart.png" />
 	{#if deck.current !== undefined}
-	<img
-		class="map"
-		id="map-marker"
-		alt=""
-		src="{preloadedImages[deck.current.name]?.src}"
-	/>
+		<img
+			class="map"
+			id="map-marker"
+			alt=""
+			src={preloadedImages[deck.current.name]?.src}
+		/>
 	{/if}
 
 	<form id="form" bind:this={form}>
@@ -134,17 +135,15 @@
 
 	.map {
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		max-width: 100%;
-		max-height: calc(100vh - 40px);
+		max-height: 100%;
 		pointer-events: none;
 		margin: 0;
 		padding: 0;
 		object-fit: contain;
-		object-position: left top;
-		width: 100%;
-		height: auto;
 	}
 
 	#map-container {
