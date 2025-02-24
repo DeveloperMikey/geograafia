@@ -13,7 +13,7 @@
     </a>
     <a href="{base}/maps/saared" class="map-item">
         <img class="mapselect" src="{base}/maps/saared/Kaart.png" alt="Saared">
-        <span class="map-text">Saared</span>
+        <span class="map-text">Saared<br>Lahed<br>Väinad</span>
     </a>
 </div>
 
@@ -56,6 +56,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: sans-serif;
     font-size: 3em;
     font-weight: bold;
     color: white;
