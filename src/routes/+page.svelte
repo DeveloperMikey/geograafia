@@ -5,15 +5,15 @@
 <div class="wrapper">
     <a href="{base}/maps/veekogud" class="map-item">
         <img class="mapselect" src="{base}/maps/veekogud/Kaart.png" alt="Veekogud">
-        <span class="map-text">Veekogud</span>
+        <span class="map-text">Siseveekogud</span>
     </a>
     <a href="{base}/maps/maastikud" class="map-item">
         <img class="mapselect" src="{base}/maps/maastikud/Kaart.png" alt="Maastikud">
-        <span class="map-text">Maastikud</span>
+        <span class="map-text">Pinnavormid</span>
     </a>
     <a href="{base}/maps/saared" class="map-item">
         <img class="mapselect" src="{base}/maps/saared/Kaart.png" alt="Saared">
-        <span class="map-text">Saared<br>Lahed<br>Väinad</span>
+        <span class="map-text">Rannajoonega<br>seotud kohanimed</span>
     </a>
 </div>
 
