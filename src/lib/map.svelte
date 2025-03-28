@@ -135,14 +135,12 @@
 
 	.map {
 		position: absolute;
-		top: 0px;
+		top: 0;
 		left: 50%;
-		transform: translate(-50%, 0px);
-		max-width: 100%;
-		max-height: 100%;
-		pointer-events: none;
-		margin: 0;
-		padding: 0;
+		transform: translateX(-50%);
+		max-height: calc(100dvh - 30px);
+		width: auto;
+		max-width: 100vw;
 		object-fit: contain;
 	}
 
