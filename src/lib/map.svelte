@@ -35,10 +35,10 @@
 
 		form.addEventListener("submit", (event) => {
 			if (input.value.length === 0 || deck.current === undefined) return; // no empty | card not found
-			const userInput = input.value.trim();
+			let userInput = input.value.trim();
 			input.value = "";
 
-			if (userInput.toLowerCase() === deck.current.name.toLowerCase()) {
+			if (userInput.toLowerCase().replaceAll('-', ' ') === deck.current.name.toLowerCase().replaceAll('-', ' ')) {
 				input.style.backgroundColor = "#70e071"; // green
 				hint = "";
 
