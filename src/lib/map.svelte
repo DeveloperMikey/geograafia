@@ -40,7 +40,12 @@
 			input.value = "";
 
 			var processedUserInput = userInput.toLowerCase().replaceAll('-', ' ')
+			if (processedUserInput === 'sutlepa järv'){
+				processedUserInput = 'sutlepa meri'
+			}
+
 			var processedAnswer = deck.current.name.toLowerCase().replaceAll('-', ' ')
+			
 			no_inclusion.forEach(no_include => {
 				if (processedAnswer.endsWith(no_include)){
 					processedUserInput = processedUserInput.replaceAll(` ${no_include}`, '')
