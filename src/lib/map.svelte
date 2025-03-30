@@ -42,8 +42,10 @@
 			var processedUserInput = userInput.toLowerCase().replaceAll('-', ' ')
 			var processedAnswer = deck.current.name.toLowerCase().replaceAll('-', ' ')
 			no_inclusion.forEach(no_include => {
-				processedUserInput = processedUserInput.replaceAll(` ${no_include}`, '')
-				processedAnswer = processedAnswer.replaceAll(` ${no_include}`, '')
+				if (processedAnswer.endsWith(no_include)){
+					processedUserInput = processedUserInput.replaceAll(` ${no_include}`, '')
+					processedAnswer = processedAnswer.replaceAll(` ${no_include}`, '')
+				}
 			})
 
 			if (processedUserInput === processedAnswer) {
