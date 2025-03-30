@@ -4,6 +4,7 @@
 	import * as repetition from "$lib/repetition.svelte";
 
 	let { path, names }: { path: string; names: string[] } = $props();
+	let no_inclusion = ["järv", "jõgi", "meri", "saar", "poolsaar", "laht", "väin"]
 
 	const deck = new repetition.Deck();
 
@@ -38,7 +39,14 @@
 			let userInput = input.value.trim();
 			input.value = "";
 
-			if (userInput.toLowerCase().replaceAll('-', ' ') === deck.current.name.toLowerCase().replaceAll('-', ' ')) {
+			var processedUserInput = userInput.toLowerCase().replaceAll('-', ' ')
+			var processedAnswer = deck.current.name.toLowerCase().replaceAll('-', ' ')
+			no_inclusion.forEach(no_include => {
+				processedUserInput = processedUserInput.replaceAll(` ${no_include}`, '')
+				processedAnswer = processedAnswer.replaceAll(` ${no_include}`, '')
+			})
+
+			if (processedUserInput === processedAnswer) {
 				input.style.backgroundColor = "#70e071"; // green
 				hint = "";
 

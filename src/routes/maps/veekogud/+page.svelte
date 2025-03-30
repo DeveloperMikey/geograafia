@@ -8,7 +8,6 @@
         "Ermistu järv",
         "Halliste jõgi",
         "Jägala jõgi",
-        "Kaart",
         "Kahala järv",
         "Karujärv",
         "Kasari jõgi",

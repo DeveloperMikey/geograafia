@@ -8,7 +8,6 @@
         "Hari kurk",
         "Hiiumaa",
         "Juminda poolsaar",
-        "Kaart",
         "Kassari poolsaar",
         "Kihnu väin",
         "Kihnu",
