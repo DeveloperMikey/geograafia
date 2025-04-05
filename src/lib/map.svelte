@@ -7,6 +7,8 @@
 	let no_inclusion = ["järv", "jõgi", "meri", "saar", "poolsaar", "laht", "väin"]
 
 	const deck = new repetition.Deck();
+	
+	let finished = $state(false);
 
 	let input: HTMLInputElement;
 	let form: HTMLFormElement;
@@ -62,7 +64,9 @@
 				wrong = false;
 				misspelled = false;
 
-				deck.getNextCard(); // TODO: check if no cards are left
+				if (!deck.getNextCard()){
+					finished = true;
+				} 
 				return;
 			}
 
@@ -140,6 +144,16 @@
 	<p id="hint">{@html hint}</p>
 </div>
 
+{#if finished}
+	<div id="end-screen">
+		<div id="end-box">
+			<h2>Tehtud!</h2>
+			<button onclick={() => window.location.href = `${base}/`}>Avaleht</button>
+			<button onclick={() => window.location.reload()}>Uuesti</button>
+		</div>
+	</div>
+{/if}
+
 <style>
 	:global(html, body) {
 		overflow: hidden;
@@ -209,4 +223,45 @@
 		align-items: center;
 		justify-content: center;
 	}
+	
+	#end-screen {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10;
+	}
+
+	#end-box {
+		background: white;
+		border-radius: 12px;
+		padding: 2rem;
+		text-align: center;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	#end-box h2 {
+		margin-bottom: 1rem;
+	}
+
+	#end-box button {
+		margin: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		font-size: 1rem;
+		border: none;
+		border-radius: 6px;
+		cursor: pointer;
+		background-color: #f0f0f0;
+		transition: background-color 0.2s;
+	}
+
+	#end-box button:hover {
+		background-color: #dcdcdc;
+	}
+
 </style>
