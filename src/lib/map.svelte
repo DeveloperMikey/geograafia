@@ -119,6 +119,10 @@
 	});
 </script>
 
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
+</head>
+
 <div id="map-container">
 	<img class="map" id="map" alt="" src="{base}/maps/{path}/Kaart.png" />
 	{#if deck.current !== undefined}
@@ -160,6 +164,7 @@
 		margin: 0;
 		padding: 0;
 		font-family: Arial, sans-serif;
+		height: 100%;
 	}
 
 	.map {
@@ -177,7 +182,7 @@
 		overflow: hidden;
 		position: relative;
 		width: 100vw;
-		height: 100dvh;
+		height: 100%;
 	}
 
 	#map-marker {
