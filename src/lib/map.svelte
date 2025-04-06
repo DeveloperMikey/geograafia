@@ -206,6 +206,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background: #fff;
 	}
 
 	#hint {
@@ -226,6 +227,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background: #fff;
 	}
 
 	
