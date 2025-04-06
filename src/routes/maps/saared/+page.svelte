@@ -1,52 +1,6 @@
 <script lang="ts">
     import Map from "$lib/map.svelte";
-
-    const islands = [
-        "Abruka",
-        "Haapsalu laht",
-        "Hara laht",
-        "Hari kurk",
-        "Hiiumaa",
-        "Juminda poolsaar",
-        "Kassari poolsaar",
-        "Kihnu väin",
-        "Kihnu",
-        "Kolga laht",
-        "Kunda laht",
-        "Kura kurk",
-        "Kõpu poolsaar",
-        "Liivi laht",
-        "Mardihansu laht",
-        "Matsalu laht",
-        "Muhu",
-        "Naissaar",
-        "Narva laht",
-        "Noarootsi poolsaar",
-        "Osmussaar",
-        "Pakri poolsaar",
-        "Paldiski laht",
-        "Piirissaar",
-        "Prangli",
-        "Pärispea poolsaar",
-        "Pärnu laht",
-        "Ruhnu",
-        "Saaremaa",
-        "Soela väin",
-        "Soome laht",
-        "Suur Katel",
-        "Suur väin",
-        "Suur-Pakri",
-        "Sõrve poolsaar",
-        "Tagamõisa poolsaar",
-        "Tallinna laht",
-        "Viimsi poolsaar",
-        "Vilsandi",
-        "Voosi kurk",
-        "Vormsi",
-        "Väike väin",
-        "Väike-Pakri",
-        "Väinameri",
-    ];
+    import { saared } from "$lib/landforms";
 </script>
 
-<Map path="saared" names={islands} />
+<Map path="saared" names={saared} />
