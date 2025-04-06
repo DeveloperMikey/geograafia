@@ -1,0 +1,1 @@
+import"../chunks/disclose-version.CEY5HTRC.js";import"../chunks/legacy.BtJaiMi2.js";import{M as m}from"../chunks/map.B9xivpxp.js";import{m as o}from"../chunks/landforms.DXqursZf.js";function s(a){m(a,{path:"maastikud",names:o})}export{s as component};
