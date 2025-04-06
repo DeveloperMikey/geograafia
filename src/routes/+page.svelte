@@ -23,17 +23,17 @@
     <a href="{base}/maps/veekogud" class="map-item">
         <img class="mapselect" src="{base}/maps/veekogud/Kaart.png" alt="Veekogud">
         <span class="map-text">Siseveekogud</span>
-        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(veekogud, "Siseveekogud"); }}>Nimekiri ❓</button>
+        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(veekogud, "Siseveekogud"); }}>Küsitavad kohad ❓</button>
     </a>
     <a href="{base}/maps/maastikud" class="map-item">
         <img class="mapselect" src="{base}/maps/maastikud/Kaart.png" alt="Maastikud">
         <span class="map-text">Pinnavormid</span>
-        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(maastikud, "Pinnavormid"); }}>Nimekiri ❓</button>
+        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(maastikud, "Pinnavormid"); }}>Küsitavad kohad ❓</button>
     </a>
     <a href="{base}/maps/saared" class="map-item">
         <img class="mapselect" src="{base}/maps/saared/Kaart.png" alt="Saared">
         <span class="map-text">Rannajoonega<br>seotud kohanimed</span>
-        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(veekogud, "Rannajoonega seotud kohanimed"); }}>Nimekiri ❓</button>
+        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(veekogud, "Rannajoonega seotud kohanimed"); }}>Küsitavad kohad ❓</button>
     </a>
 </div>
 
