@@ -1,1 +1,0 @@
-import"../chunks/disclose-version.CEY5HTRC.js";import"../chunks/legacy.BtJaiMi2.js";import{M as o}from"../chunks/map.B9xivpxp.js";import{s as p}from"../chunks/landforms.DXqursZf.js";function e(a){o(a,{path:"saared",names:p})}export{e as component};
