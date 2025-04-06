@@ -172,7 +172,7 @@
 		top: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		max-height: calc(100dvh - 30px);
+		max-height: calc(100dvh - 30px - 20px);
 		width: auto;
 		max-width: 100vw;
 		object-fit: contain;
@@ -193,10 +193,9 @@
 		position: fixed;
 		bottom: 0;
 		height: 40px;
-		width: 70%;
+		width: 100%;
 		border: 0px;
 		border-top: 2px solid rgba(0, 0, 0, 0.5);
-		border-right: 2px solid rgba(0, 0, 0, 0.5);
 		font-size-adjust: 0.6;
 		text-align: center;
 		z-index: 2;
@@ -211,11 +210,11 @@
 
 	#hint {
 		position: fixed;
-		bottom: 0px;
-		left: calc(70% + 2px);
-		height: 40px;
-		width: calc(30% - 2px);
+		bottom: 40px;
+		height: 30px;
+		width: 100%;
 		border: 0px;
+		border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 		border-top: 2px solid rgba(0, 0, 0, 0.5);
 		font-size-adjust: 0.45;
 		text-align: center;
@@ -227,7 +226,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-color: white;
 	}
+
 	
 	#end-screen {
 		position: fixed;
