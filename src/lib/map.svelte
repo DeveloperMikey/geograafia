@@ -124,12 +124,13 @@
 </head>
 
 <div id="map-container">
-	<img class="map" id="map" alt="" src="{base}/maps/{path}/Kaart.png" />
+	<img class="map" id="map" alt="" draggable=false src="{base}/maps/{path}/Kaart.png" />
 	{#if deck.current !== undefined}
 		<img
 			class="map"
 			id="map-marker"
 			alt=""
+			draggable=false
 			src={preloadedImages[deck.current.name]?.src}
 		/>
 	{/if}
