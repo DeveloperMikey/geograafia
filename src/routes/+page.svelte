@@ -3,10 +3,10 @@
 	import { maastikud, saared, veekogud } from "$lib/landforms";
 
 	let showModal: boolean = false;
-	let currentList: string[] = [];
+	let currentList: (string|string[])[] = [];
 	let modalTitle: string = "";
 
-	function openModal(data: string[], title: string) {
+	function openModal(data: (string|string[])[], title: string) {
 		currentList = data;
 		modalTitle = title;
 		showModal = true;
@@ -42,7 +42,13 @@
 		<h2>{modalTitle}</h2>
 		<ul>
 			{#each currentList as item}
-				<li>{item}</li>
+				<li>
+					{#if Array.isArray(item)}
+						{item[0]} ({item.slice(1).join(', ')})
+					{:else}
+						{item}
+					{/if}
+				</li>
 			{/each}
 		</ul>
 		<button onclick={closeModal} type="button">Sulge</button>

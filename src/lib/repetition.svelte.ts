@@ -3,11 +3,11 @@ import { debug } from "$lib/debugging"
 enum State { Unknown, Hard, Medium, Easy }
 
 class Card {
-    name: string
+    name: string | string[]
     state: State = State.Unknown
     time: number = 0
 
-    constructor(name: string) {
+    constructor(name: string | string[]) {
         this.name = name
     }
 
@@ -62,14 +62,24 @@ class Card {
 
         debug(`Card ${this.name} time: ${this.time} (${this.time - Date.now()})`)
     }
+
+    getPrimaryName(): string {
+        return Array.isArray(this.name) ? this.name[0] : this.name;
+    }
+
+    getAllNames(): string[] {
+        return Array.isArray(this.name) ? this.name : [this.name];
+    }
 }
 
 class Deck {
     current: Card | undefined = $state(undefined)
     cards: Card[] = []
 
-    addCard = (name: string) => {
-        this.cards.push(new Card(name))
+    addCard = (name: string | string[]) => {
+        const card = new Card(name)
+        this.cards.push(card)
+        return card
     }
 
     getNextCard = () => {

@@ -3,7 +3,7 @@
 	import * as diff from "diff";
 	import * as repetition from "$lib/repetition.svelte";
 
-	let { path, names }: { path: string; names: string[] } = $props();
+	let { path, names }: { path: string; names: (string|string[])[] } = $props();
 	let no_inclusion = ["järv", "jõgi", "meri", "saar", "poolsaar", "laht", "väin"]
 
 	const deck = new repetition.Deck();
@@ -20,10 +20,11 @@
 	const preloadedImages: Record<string, HTMLImageElement> = {};
 
 	names.forEach((name) => {
-		deck.addCard(name);
+		const card = deck.addCard(name);
+		const primary_name = card.getPrimaryName()
 		const img = new Image();
-		img.src = `${base}/maps/${path}/${name}.png`;
-		preloadedImages[name] = img;
+		img.src = `${base}/maps/${path}/${primary_name}.png`;
+		preloadedImages[primary_name] = img;
 	});
 
 	$effect(() => {
@@ -42,11 +43,15 @@
 			input.value = "";
 
 			var processedUserInput = userInput.toLowerCase().replaceAll('-', ' ')
+			const currentCard = deck.current;
+			deck.current.getAllNames().forEach(possible_name => {
+				processedUserInput = processedUserInput.replace(possible_name.toLowerCase(), currentCard.getPrimaryName().toLowerCase())
+			})
 			if (processedUserInput === 'sutlepa järv'){
 				processedUserInput = 'sutlepa meri'
 			}
 
-			var processedAnswer = deck.current.name.toLowerCase().replaceAll('-', ' ')
+			var processedAnswer = deck.current.getPrimaryName().toLowerCase().replaceAll('-', ' ')
 			
 			no_inclusion.forEach(no_include => {
 				if (processedAnswer.endsWith(no_include)){
@@ -70,7 +75,7 @@
 				return;
 			}
 
-			const difference = diff.diffChars(deck.current.name, userInput, {
+			const difference = diff.diffChars(deck.current.getPrimaryName(), userInput, {
 				ignoreCase: true,
 			});
 
@@ -108,11 +113,11 @@
 				input.style.backgroundColor = "#f56e6e"; // red
 				if (!wrong && !misspelled) {
 					hint =
-						deck.current.name.charAt(0) +
-						deck.current.name.replace(/[^ ]/g, "_").slice(1); // A____ _____
+						deck.current.getPrimaryName().charAt(0) +
+						deck.current.getPrimaryName().replace(/[^ ]/g, "_").slice(1); // A____ _____
 					wrong = true;
 				} else {
-					hint = deck.current.name;
+					hint = deck.current.getPrimaryName();
 				}
 			}
 		});
@@ -131,7 +136,7 @@
 			id="map-marker"
 			alt=""
 			draggable=false
-			src={preloadedImages[deck.current.name]?.src}
+			src={preloadedImages[deck.current.getPrimaryName()]?.src}
 		/>
 	{/if}
 
