@@ -33,7 +33,7 @@
     <a href="{base}/maps/saared" class="map-item">
         <img class="mapselect" src="{base}/maps/saared/Kaart.png" alt="Saared">
         <span class="map-text">Rannajoonega<br>seotud kohanimed</span>
-        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(veekogud, "Rannajoonega seotud kohanimed"); }}>Küsitavad kohad ❓</button>
+        <button class="map-button" onclick={(e) => { e.stopPropagation(); e.preventDefault(); openModal(saared, "Rannajoonega seotud kohanimed"); }}>Küsitavad kohad ❓</button>
     </a>
 </div>
 
