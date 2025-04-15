@@ -1,1 +1,0 @@
-import"../chunks/disclose-version.CEY5HTRC.js";import"../chunks/legacy.BtJaiMi2.js";import{v as p}from"../chunks/landforms.DXqursZf.js";import{M as e}from"../chunks/map.CvLO-AeJ.js";function i(o){e(o,{path:"veekogud",names:p})}export{i as component};
