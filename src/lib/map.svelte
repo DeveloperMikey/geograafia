@@ -47,9 +47,6 @@
 			deck.current.getAllNames().forEach(possible_name => {
 				processedUserInput = processedUserInput.replace(possible_name.toLowerCase(), currentCard.getPrimaryName().toLowerCase())
 			})
-			if (processedUserInput === 'sutlepa järv'){
-				processedUserInput = 'sutlepa meri'
-			}
 
 			var processedAnswer = deck.current.getPrimaryName().toLowerCase().replaceAll('-', ' ')
 			
